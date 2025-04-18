@@ -25,23 +25,19 @@
     <!-- popup source -->
     <script src="https://cdn.jsdelivr.net/gh/dinoqqq/simple-popup@master/dist/jquery.simple-popup.min.js"></script>
     <link href="https://cdn.jsdelivr.net/gh/dinoqqq/simple-popup@master/dist/jquery.simple-popup.min.css" rel="stylesheet" type="text/css" />
+
+    <style>
+        input, textarea, button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
 </head>
 
-<style>
-    input, textarea, button {
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 16px;
-        color: #333;
-    }
-    </style>
-
 <body>
-    <div id="popup" style="display:none;">
-        <h1>감사합니다. </h1>
-        <p>이제는 우리는 같은 배를 탔습니다.  </p>
-        </div>
     <!-- banner -->
     <div class="jumbotron jumbotron-fluid" id="banner" style="background-image: url(img/banner-bk.jpg);">
         <div class="container text-center text-md-left">
@@ -389,8 +385,6 @@
                     $("#submit").on("click", function () {
 					const email = $("#submit-email").val();
 					const advice = $("#submit-advice").val();
-
-                    $.busyLoadFull("show");
 		    
 					function validateEmail(email) {
 					    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
@@ -401,6 +395,8 @@
 					    alert("이메일이 유효하지 않아 알림을 드릴 수가 없습니다. ");
 					    return;
 					}
+
+                    $.busyLoadFull("show");
 		    
 					var finalData = JSON.stringify({
 					    "id": getUVfromCookie(),
@@ -417,11 +413,16 @@
 						$('#submit-email').val('');
 						$('#submit-advice').val('');
 					    })
+                  
 				    });
 			
 
 				    });
     </script>
+        <div id="popup" style="display:none;">
+            <h1>감사합니다. </h1>
+            <p>이제는 우리는 같은 배를 탔습니다.  </p>
+        </div>
 </body>
 
 </html>
