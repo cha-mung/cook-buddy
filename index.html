@@ -56,7 +56,7 @@
                     <br>Cook Buddy는 가장 쉬운 레시피부터 시작하는 요리 가이드로
                     <br>성공적인 첫 요리부터 식비 절감까지 함께합니다.
                 </p>
-                <a href="#" data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="btn my-4 font-weight-bold atlas-cta cta-green">Cook Buddy 시작하기</a>
+                <a href="#" id="start-cookbuddy" data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="btn my-4 font-weight-bold atlas-cta cta-green">Cook Buddy 시작하기</a>
             </div>
         </div>
     </div>
@@ -295,7 +295,8 @@
 							"referer": document.referrer,
 							"time_stamp": getTimeStamp(), 
 							"utm": utm,
-							"device":mobile}
+							"device":mobile
+                            }
 							);
 
 				$(document).ready(function () {
@@ -355,13 +356,37 @@
 					    })
                   
 				    });
+
+                    $("#start-cookbuddy").on("click", function (e) {
+                        e.preventDefault(); // 링크 이동 막기
+
+                        const minimalData = JSON.stringify({
+                            "id": getUVfromCookie(),
+                            "action": "clicked_start_button"
+                        });
+
+                        $.busyLoadFull("show");
+
+                        axios.get(addrScript + '?action=insert&table=tab_button&data=' + minimalData)
+                            .then(response => {
+                                $.busyLoadFull("hide");
+                                $.fn.simplePopup({ type: "html", htmlSelector: "#popup" });
+                            })
+                            .catch(error => {
+                                $.busyLoadFull("hide");
+                                alert("기록 중 오류가 발생했습니다.");
+                                console.error(error);
+                            });
+                    });
+
+
 			
 
 				    });
     </script>
         <div id="popup" style="display:none;">
-            <h1>감사합니다. </h1>
-            <p>이제는 우리는 같은 배를 탔습니다.  </p>
+            <h1>서비스가 준비 중입니다!</h1>
+            <p>빠른 시일 내로 서비스가 오픈됩니다. 하단에 이메일을 남겨주세요 :D </p>
         </div>
 </body>
 
